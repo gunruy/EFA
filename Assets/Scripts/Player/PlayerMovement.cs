@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
-
     public float groundDrag;
 
     public float jumpForce;
@@ -36,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    private bool isOnTrampoline = false; // Trambolin üzerinde olma durumu
+    private float trampolineMultiplier = 2f; // Trambolindeki zýplama kuvveti artýrma oraný
 
     private void Start()
     {
@@ -69,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (view.IsMine)
         {
-
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -116,11 +117,36 @@ public class PlayerMovement : MonoBehaviour
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        // Eðer trambolinin üzerindeysek, zýplama kuvvetini artýr
+        if (isOnTrampoline)
+        {
+            rb.AddForce(transform.up * jumpForce * trampolineMultiplier, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
     }
+
     private void ResetJump()
     {
         readyToJump = true;
     }
 
+    // Trambolinle etkileþim
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Trampoline")) // Trambolinin tag'ý
+        {
+            isOnTrampoline = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Trampoline"))
+        {
+            isOnTrampoline = false;
+        }
+    }
 }
