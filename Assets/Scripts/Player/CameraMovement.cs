@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-
-
     float xRotation;
     float yRotation;
     public float sensX = 50f;
@@ -14,7 +12,6 @@ public class CameraMovement : MonoBehaviour
     //Stores the direction that object is facing.
     public Transform orientation;
     public Transform camera;
-
 
     void Start()
     {
@@ -25,14 +22,13 @@ public class CameraMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Update()
+    void LateUpdate()
     {
         Look();
     }
 
     private void Look()
     {
-
         float mouseX = Input.GetAxis("Mouse X") * sensY * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensX * Time.deltaTime;
 
@@ -41,13 +37,8 @@ public class CameraMovement : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         camera.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-
-
     }
-
-
 }

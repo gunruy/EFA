@@ -185,4 +185,196 @@ namespace Photon.Pun.Demo.PunBasics
 
 	}
 
+    public class CameraMovement : MonoBehaviour
+    {
+        float xRotation;
+        float yRotation;
+        public float sensX = 50f;
+        public float sensY = 50f;
+
+        //Stores the direction that object is facing.
+        public Transform orientation;
+        public Transform camera;
+
+        void Start()
+        {
+            orientation = transform.Find("Orientation").GetComponent<Transform>();
+            camera = transform.Find("Camera").GetComponent<Transform>();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        void LateUpdate()
+        {
+            Look();
+        }
+
+        private void Look()
+        {
+            float mouseX = Input.GetAxis("Mouse X") * sensY * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * sensX * Time.deltaTime;
+
+            yRotation += mouseX;
+            xRotation -= mouseY;
+
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+            camera.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        }
+    }
+
+    public class PlayerMovement : MonoBehaviour
+    {
+        PhotonView view;
+
+        [Header("Movement")]
+        public float moveSpeed;
+        public float groundDrag;
+
+        public float jumpForce;
+        public float jumpCooldown;
+        public float airMultiplier;
+        bool readyToJump;
+
+        [HideInInspector] public float walkSpeed;
+        [HideInInspector] public float sprintSpeed;
+
+        [Header("Keybinds")]
+        public KeyCode jumpKey = KeyCode.Space;
+
+        [Header("Ground Check")]
+        public float playerHeight;
+        public LayerMask whatIsGround;
+        bool grounded;
+
+        public Transform orientation;
+
+        float horizontalInput;
+        float verticalInput;
+
+        Vector3 moveDirection;
+
+        Rigidbody rb;
+
+        private bool isOnTrampoline = false; // Trambolin üzerinde olma durumu
+        private float trampolineMultiplier = 2f; // Trambolindeki zıplama kuvveti artırma oranı
+
+        private void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+            rb.freezeRotation = true;
+            readyToJump = true;
+            view = GetComponent<PhotonView>();
+        }
+
+        private void Update()
+        {
+            if (view.IsMine)
+            {
+                // ground check
+                grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+
+                MyInput();
+                SpeedControl();
+
+                // handle drag
+                if (grounded)
+                    rb.drag = groundDrag;
+                else
+                    rb.drag = 0;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (view.IsMine)
+            {
+                MovePlayer();
+            }
+        }
+
+        private void MyInput()
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+
+            // when to jump
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            {
+                readyToJump = false;
+
+                Jump();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+        }
+
+        private void MovePlayer()
+        {
+            // calculate movement direction
+            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+            // on ground
+            if (grounded)
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+            // in air
+            else if (!grounded)
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
+
+        private void SpeedControl()
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            // limit velocity if needed
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
+        }
+
+        private void Jump()
+        {
+            // reset y velocity
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            // Eğer trambolinin üzerindeysek, zıplama kuvvetini artır
+            if (isOnTrampoline)
+            {
+                rb.AddForce(transform.up * jumpForce * trampolineMultiplier, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+
+        private void ResetJump()
+        {
+            readyToJump = true;
+        }
+
+        // Trambolinle etkileşim
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Trampoline")) // Trambolinin tag'ı
+            {
+                isOnTrampoline = true;
+            }
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.CompareTag("Trampoline"))
+            {
+                isOnTrampoline = false;
+            }
+        }
+    }
+
 }
