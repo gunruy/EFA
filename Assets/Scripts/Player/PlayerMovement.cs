@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
 
     public Transform orientation;
+    public new Renderer renderer; // 'new' anahtar kelimesi eklendi
 
     float horizontalInput;
     float verticalInput;
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         view = GetComponent<PhotonView>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
