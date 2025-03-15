@@ -42,3 +42,7 @@ public class CameraMovement : MonoBehaviour
         camera.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 }
+public class PlayerInputHandler : MonoBehaviour
+{
+    // Bu sýnýfýn içeriðini ihtiyacýnýza göre doldurun
+}

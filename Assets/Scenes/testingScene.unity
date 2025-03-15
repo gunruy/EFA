@@ -267,6 +267,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3088689005167048671, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156229063157179487, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4668998055591858585, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: sensX
       value: 100
@@ -275,13 +283,25 @@ PrefabInstance:
       propertyPath: sensY
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4668998055591858585, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4693230264432559845, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866028050981072229, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.194
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866028050981072229, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949463856520124229, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.92
       objectReference: {fileID: 0}
     - target: {fileID: 7478818286730045665, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -326,6 +346,10 @@ PrefabInstance:
     - target: {fileID: 7833606383755824139, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: jumpForce
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833606383755824139, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7833606383755824139, guid: 5f6cdc9d972f993489f0400851ccc4af, type: 3}
       propertyPath: jumpCooldown
