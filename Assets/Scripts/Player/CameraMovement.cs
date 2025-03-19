@@ -44,5 +44,5 @@ public class CameraMovement : MonoBehaviour
 }
 public class PlayerInputHandler : MonoBehaviour
 {
-    // Bu sýnýfýn içeriðini ihtiyacýnýza göre doldurun
+    // Bu sýnýfýn içeriðini ihtiyacýnýza göre doldurulmasý gerekiyor unutma!
 }
