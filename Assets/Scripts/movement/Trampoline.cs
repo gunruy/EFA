@@ -5,8 +5,8 @@ using UnityEngine;
 public class Trampoline : MonoBehaviour
 {
     [Header("Trampoline Settings")]
-    public float gravityReductionFactor = 2f; // Zýplama sýrasýnda yerçekimi ne kadar azalacak
-    public float jumpForceMultiplier = 1.5f; // Zýplama kuvvetini arttýrma oraný
+    public float gravityReductionFactor = 2f; // Zï¿½plama sï¿½rasï¿½nda yerï¿½ekimi ne kadar azalacak
+    public float jumpForceMultiplier = 1.5f; // Zï¿½plama kuvvetini arttï¿½rma oranï¿½
 
     private bool isOnTrampoline = false;
     private float defaultGravity;
@@ -14,40 +14,40 @@ public class Trampoline : MonoBehaviour
 
     private void Start()
     {
-        defaultGravity = Physics.gravity.y; // Varsayýlan yerçekimi deðerini alýyoruz
+        defaultGravity = Physics.gravity.y; // Varsayï¿½lan yerï¿½ekimi deï¿½erini alï¿½yoruz
     }
 
     private void Update()
     {
         if (isOnTrampoline)
         {
-            // Trambolinin üstündeyken yerçekimini azalt
+            // Trambolinin ï¿½stï¿½ndeyken yerï¿½ekimini azalt
             Physics.gravity = new Vector3(0, defaultGravity / gravityReductionFactor, 0);
         }
         else
         {
-            // Yerçekimini yavaþça eski haline döndür
+            // Yerï¿½ekimini yavaï¿½ï¿½a eski haline dï¿½ndï¿½r
             Physics.gravity = new Vector3(0, Mathf.Lerp(Physics.gravity.y, defaultGravity, Time.deltaTime * 3f), 0);
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        // Eðer karakter bu objeyle çarpýyorsa
-        if (other.gameObject.CompareTag("Player")) // "Player" tag'ý olan objelerle çarpacak
+        // Eï¿½er karakter bu objeyle ï¿½arpï¿½yorsa
+        if (other.gameObject.CompareTag("Player")) // "Player" tag'ï¿½ olan objelerle ï¿½arpacak
         {
             isOnTrampoline = true;
-            playerRb = other.gameObject.GetComponent<Rigidbody>(); // Player'ýn Rigidbody'sini alýyoruz
+            playerRb = other.gameObject.GetComponent<Rigidbody>(); // Player'ï¿½n Rigidbody'sini alï¿½yoruz
             if (playerRb != null)
             {
-                playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y * jumpForceMultiplier, playerRb.velocity.z); // Zýplama kuvvetini arttýr
+                playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, playerRb.linearVelocity.y * jumpForceMultiplier, playerRb.linearVelocity.z); // Zï¿½plama kuvvetini arttï¿½r
             }
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
-        // Eðer karakter trambolinden ayrýlýyorsa
+        // Eï¿½er karakter trambolinden ayrï¿½lï¿½yorsa
         if (other.gameObject.CompareTag("Player"))
         {
             isOnTrampoline = false;

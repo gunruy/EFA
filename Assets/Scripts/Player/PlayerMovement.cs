@@ -37,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    private bool isOnTrampoline = false; // Trambolin üzerinde olma durumu
-    private float trampolineMultiplier = 2f; // Trambolindeki zýplama kuvveti artýrma oraný
+    private bool isOnTrampoline = false; // Trambolin ï¿½zerinde olma durumu
+    private float trampolineMultiplier = 2f; // Trambolindeki zï¿½plama kuvveti artï¿½rma oranï¿½
 
     private void Start()
     {
@@ -58,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
         // handle drag
         if (grounded)
-            rb.drag = groundDrag;
+            rb.linearDamping = groundDrag;
         else
-            rb.drag = 0;
+            rb.linearDamping = 0;
     }
 
     private void FixedUpdate()
@@ -103,22 +103,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         // limit velocity if needed
         if (flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
     }
 
     private void Jump()
     {
         // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        // Eðer trambolinin üzerindeysek, zýplama kuvvetini artýr
+        // Eï¿½er trambolinin ï¿½zerindeysek, zï¿½plama kuvvetini artï¿½r
         if (isOnTrampoline)
         {
             rb.AddForce(transform.up * jumpForce * trampolineMultiplier, ForceMode.Impulse);
@@ -134,10 +134,10 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    // Trambolinle etkileþim
+    // Trambolinle etkileï¿½im
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Trampoline")) // Trambolinin tag'ý
+        if (other.gameObject.CompareTag("Trampoline")) // Trambolinin tag'ï¿½
         {
             isOnTrampoline = true;
         }
