@@ -53,9 +53,10 @@ public class PlayerMovemement : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
-        climbCheck();
-
+        if (!view.IsMine) return;
+        if (!view.IsMine) return;
+        if (!view.IsMine) return;
+      
     }
 
     void FixedUpdate()
