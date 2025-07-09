@@ -33,7 +33,7 @@ public class PlayerMovemement : MonoBehaviour
 
     //components
     private CharacterController controller;
-    private Renderer renderer;
+    private Renderer renderer2;
     private Transform orientation;
 
     PhotonView view;
@@ -43,8 +43,8 @@ public class PlayerMovemement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         orientation = transform.Find("Orientation").GetComponent<Transform>();
 
-        renderer = transform.Find("Capsule").GetComponent<Renderer>();
-        playerHeight = renderer.bounds.size.y;
+        renderer2 = transform.Find("Capsule").GetComponent<Renderer>();
+        playerHeight = renderer2.bounds.size.y;
 
         view = GetComponent<PhotonView>();
 
