@@ -1,16 +1,36 @@
-Welcome to EFA, a Unity-based 5v5 bomb-planting first-person shooter! EFA offers a tactical gaming experience in a vibrant, low-poly environment. Players can choose between two teams: attackers aiming to plant the bomb, and defenders striving to prevent it. Engage in fast-paced, strategic gameplay that emphasizes teamwork, skill, and quick decision-making.
+# EFA - Experimental FPS Framework for Unity
 
-![image](https://github.com/user-attachments/assets/82cf487b-08c0-48d0-b35b-6b887cde1446)
+![type](https://img.shields.io/badge/type-Unity%20FPS%20framework-blue) ![tech](https://img.shields.io/badge/tech-C%23%20%2F%20Unity-black) ![status](https://img.shields.io/badge/status-active-green)
 
-Features
-Team-Based Gameplay: Intense 5v5 matches that require coordination and strategy.
-Bomb-Planting Mechanics: Attackers must plant the bomb at designated sites, while defenders must defuse it or eliminate all attackers.
-Low-Poly Visuals: A unique, stylized look with low-poly graphics for a visually appealing yet performance-friendly experience.
-Diverse Maps: Various maps designed for tactical play, each offering unique challenges and opportunities for both teams.
-Weapons and Loadouts: A variety of weapons and equipment to suit different play styles and strategies.
-Easy to Learn, Hard to Master: Simple controls and mechanics make the game accessible, while deep strategy and team dynamics offer a challenging experience.
-Get Involved
-Playtesting: We’re looking for playtesters to help us refine EFA. Join our community and provide feedback!
-Contributions: This project is open-source! Contributions, whether through code, art, or ideas, are welcome to help make EFA even better.
-Feedback: We value your input. Share your thoughts and suggestions through GitHub issues or join our Discord community.
+**EFA - Experimental FPS Framework for Unity** is a modular Unity foundation for building fast-paced first-person shooter prototypes with team-based gameplay, bomb-planting mechanics, and performance-friendly low-poly design.
 
+Designed for Unity game developers, FPS prototype builders, gameplay programmers, indie teams, and students exploring tactical shooter systems.
+
+## Features
+
+- Unity-based first-person shooter foundation.
+- Team-based attacker/defender gameplay direction.
+- Bomb planting and defusal mechanic concepts.
+- Low-poly visual style for lightweight prototyping.
+- Expandable weapons, maps, and gameplay systems.
+- Good starting point for learning modular Unity FPS architecture.
+
+## Installation
+
+Clone the repository and open it with a compatible Unity version. Let Unity import assets and scripts before entering Play Mode.
+
+## Usage
+
+Open the main scene, configure teams/maps as needed, and iterate on gameplay scripts, weapons, and level flow inside Unity.
+
+## SEO Keywords
+
+Unity FPS framework, Unity tactical shooter, Unity bomb planting game, Unity FPS prototype, C# shooter mechanics, Unity low poly FPS
+
+## GitHub Topics
+
+`unity`, `fps-framework`, `shooter`, `gamedev`, `csharp`, `game-prototype`, `modular-design`
+
+## Repository
+
+[View on GitHub](https://github.com/AybarsBarut/EFA)
